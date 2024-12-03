@@ -27,48 +27,88 @@
 
 
 import pandas as pd
+import csv 
+
+DOPARTONE = False
+
+def checkSafety(row):
+    previous = row[0]
+    safe = True
+    rejection_reason = []
+    ascending = False
+    descending = False
+
+    for x in range(1,len(row)):
+        current = row[x]
+        if ( current > previous):
+            if descending:
+                safe = False
+                rejection_reason.append("Ascending and Descending")
+                break
+            ascending = True
+
+        if ( current < previous):
+            if ascending:
+                safe = False
+                rejection_reason.append("Ascending and Descending")
+                break
+            descending = True
+
+        delta = abs(current - previous)
+        if delta == 0:
+            safe = False
+            rejection_reason.append("No change")
+            break
+
+        if delta > 3:
+            safe = False
+            rejection_reason.append("Change over 3")
+            break
+
+        previous = current
+    return(safe, rejection_reason)
 
 if __name__ == '__main__':
-    print("Day 02")
-    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day02\\trial.csv'
+#    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day02\\trial.csv'
     file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day02\\day02stage01.csv'
-    print(file)
-    df = pd.read_csv(file, sep='\s+', names=['a','b'], index_col=False)
-    print(df.head(8))
-    df_a = df[['a']].copy()
-    df_a = df_a.sort_values(by=['a'], ignore_index=True)
-    df_b = df[['b']].copy()
-    df_b = df_b.sort_values(by=['b'], ignore_index=True)
-    print(df_a.head(8))
-    print(df_b.head(8))
+    inputdata = []
+    with open(file,'r') as csvfile: 
+        reader = csv.reader( csvfile,delimiter=' ') # change contents to floats
+        for row in reader: # each row is a list
+            lst = [int(d) for d in row]
+            inputdata.append(lst)
 
-    total_dis = 0
-    length = len(df_a)
+    safecount = 0
+    if DOPARTONE:
+        for row in inputdata:
+            safe, rejection_reason = checkSafety(row)
 
-    for i in range(length):
-        x = df_a['a'].iloc[i]
-        y = df_b['b'].iloc[i]
-        dis = abs(x-y)
-        total_dis += dis
-        print(x,y,dis,total_dis)
+            print(row, safe, rejection_reason)
+            if safe:
+                safecount += 1
 
-    for x in df_a:
-        z = df_b[df_b['b']==x]
-        print (f"x: {x}")
+        print(f"Part 1 Safecount: {safecount}")
 
-    print(f"Part 1 answer:", total_dis)
 
-    total_product = 0
+    safecount = 0
 
-    for i in range(length):
-        x = df_a['a'].iloc[i]
-        y = df_b.loc[df_b['b'] == x]
-        count_value_x_in_df_b = len(y)
-        if count_value_x_in_df_b:
-            product = x * count_value_x_in_df_b
-            total_product += product
-            print(i,x,count_value_x_in_df_b,product,total_product)
+    for row in inputdata:
+        safe, rejection_reason = checkSafety(row)
+
+        print(row, safe, rejection_reason)
+        if safe:
+            safecount += 1
         else:
-            print(i,x,'None in b')
+# create a second list when first try is unsafe where one of the elements is skipped
+# check if this list is safe.  If it is then count the row as safe and 'break' to
+# move on to the next row
+            for skip in range(len(row)):
+                rowmissone = row[:skip] + row[skip+1:]
+                safe, rejection_reason = checkSafety(rowmissone)
+                if safe:
+                    safecount += 1
+#                    print(row, safe, rejection_reason)
+                    print(f"Skip {skip} {rowmissone} Safe")
+                    break
 
-    print(f"Part 2 answer:", total_product)
+    print(f"Part 2 Safecount: {safecount}")
