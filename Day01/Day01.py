@@ -24,10 +24,10 @@
 # _gid=GA1.2.314749366.1733226540; 
 # session=53616c7465645f5f22bc9f1fd4184fd1828df55fed38976e974abd7fa28d75d148f435b0b729052932f8355846cfff71f78ab51579fb3eab4db1fa81437d9615; _gat=1; _ga_MHSNPJKWC7=GS1.2.1733226540.19.1.1733228141.0.0.0
 
-
+# uses read csv and loads data into a data frame with read_csv
+# manipulates pandas dataframes
 
 import pandas as pd
-from aocd import get_data
 
 if __name__ == '__main__':
     file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day01\\trail.csv'

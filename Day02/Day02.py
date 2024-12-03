@@ -25,13 +25,15 @@
 # session=53616c7465645f5f22bc9f1fd4184fd1828df55fed38976e974abd7fa28d75d148f435b0b729052932f8355846cfff71f78ab51579fb3eab4db1fa81437d9615; _gat=1; _ga_MHSNPJKWC7=GS1.2.1733226540.19.1.1733228141.0.0.0
 
 
+# uses multiple returned values from a function with definition -> tuple[type, type]
+# uses if __name__ == '__main__':
 
 import pandas as pd
 import csv 
 
 DOPARTONE = False
 
-def checkSafety(row):
+def checkSafety(row) -> tuple[bool, str]:
     previous = row[0]
     safe = True
     rejection_reason = []
