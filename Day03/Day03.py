@@ -20,95 +20,98 @@
 # pip freeze > current.txt
 # pip uninstall -r .\current.txt -y
 
-#_ga=GA1.2.1374795190.1701415040; 
-# _gid=GA1.2.314749366.1733226540; 
-# session=53616c7465645f5f22bc9f1fd4184fd1828df55fed38976e974abd7fa28d75d148f435b0b729052932f8355846cfff71f78ab51579fb3eab4db1fa81437d9615; _gat=1; _ga_MHSNPJKWC7=GS1.2.1733226540.19.1.1733228141.0.0.0
-
+# xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
+# xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
 
 
 import pandas as pd
 import csv 
+import re
 
-DOPARTONE = False
+DOPART01 = True 
+DOPART02 = True
+FOLDER = '.\\'
 
-def checkSafety(row):
-    previous = row[0]
-    safe = True
-    rejection_reason = []
-    ascending = False
-    descending = False
+def compute_sum(string) -> int:
+    findstr = "mul\(\d+,\d+\)"
 
-    for x in range(1,len(row)):
-        current = row[x]
-        if ( current > previous):
-            if descending:
-                safe = False
-                rejection_reason.append("Ascending and Descending")
-                break
-            ascending = True
+    muls = re.findall(findstr, string)
 
-        if ( current < previous):
-            if ascending:
-                safe = False
-                rejection_reason.append("Ascending and Descending")
-                break
-            descending = True
+    finda = "\d+"
+    total = 0
+    for x in muls:
+        a,b = re.findall(finda, x)
+        a = int(a)
+        b = int(b)
+        print(x, a ,b)
+        z = a * b
+        total += z
+    return(total)
 
-        delta = abs(current - previous)
-        if delta == 0:
-            safe = False
-            rejection_reason.append("No change")
-            break
-
-        if delta > 3:
-            safe = False
-            rejection_reason.append("Change over 3")
-            break
-
-        previous = current
-    return(safe, rejection_reason)
 
 if __name__ == '__main__':
-#    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day02\\trial.csv'
-    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day02\\day02stage01.csv'
-    inputdata = []
-    with open(file,'r') as csvfile: 
-        reader = csv.reader( csvfile,delimiter=' ') # change contents to floats
-        for row in reader: # each row is a list
-            lst = [int(d) for d in row]
-            inputdata.append(lst)
+    file01 = FOLDER + 'trial.csv'
+    file01 = FOLDER + 'day03stage01.csv'
+    inputstring = ""
+    with open(file01,'r') as csvfile: 
+        for x in csvfile:
+            inputstring += x
 
-    safecount = 0
-    if DOPARTONE:
-        for row in inputdata:
-            safe, rejection_reason = checkSafety(row)
+    if DOPART01:
+        print("Part 01")
+        print(f"Part 01: inputstring\n{inputstring}")
+        total = compute_sum(inputstring)
+        print(f"Part 01 Total: {total}")
 
-            print(row, safe, rejection_reason)
-            if safe:
-                safecount += 1
+    if DOPART02:
+        print("Part 02")
 
-        print(f"Part 1 Safecount: {safecount}")
+        file02 = FOLDER + 'trial03pt02.csv'
+#        file02 = FOLDER + 'day03stage01.csv'
+        
+        inputstring = ""
+        with open(file02,'r') as csvfile: 
+            for x in csvfile:
+                inputstring += x
+            
+        print(f"Part 02: inputstring\n{inputstring}")
 
+        finddont = "don\'t\(\)"
+        finddo = "do\(\)"
+        findmul = "mul\(\d+,\d+\)"
+        print(finddont)
 
-    safecount = 0
+        match_donts = [(m.start(0), m.end(0)) for m in re.finditer(finddont, inputstring)]
+        match_dos = [(m.start(0), m.end(0)) for m in re.finditer(finddo, inputstring)]
 
-    for row in inputdata:
-        safe, rejection_reason = checkSafety(row)
+        match_donts_start = [(m[0]) for m in match_donts]
+        match_donts_end = [(m[1]) for m in match_donts]
+        match_dos_start = [(m[0]) for m in match_dos]
+        match_dos_end = [(m[1]) for m in match_dos]
 
-        print(row, safe, rejection_reason)
-        if safe:
-            safecount += 1
-        else:
-# create a second list when first try is unsafe where one of the elements is skipped
-# check if this list is safe.  If it is then count the row as safe and 'break' to
-# move on to the next row
-            for skip in range(len(row)):
-                rowmissone = row[:skip] + row[skip+1:]
-                safe, rejection_reason = checkSafety(rowmissone)
-                if safe:
-                    safecount += 1
-#                    print(row, safe, rejection_reason)
-                    print(f"Skip {skip} {rowmissone} Safe")
-                    break
+        print(match_donts, match_donts_start)
+        print(match_dos)
 
-    print(f"Part 2 Safecount: {safecount}")
+        do = True
+        dont = False
+        newinput = ""
+
+        for x in range(len(inputstring)):
+            char = inputstring[x]
+            if ( do and x in match_donts_start ):
+                dont = True
+                do = False
+            
+            if ( dont and x in match_dos_start ):
+                do = True
+                dont = False
+
+            if dont:
+                char = '.'
+
+            newinput = newinput + char
+
+        print(f"Removed don't - do\n{newinput}")
+        total = compute_sum(newinput)
+
+        print(f"Part 02 Total: {total}")
