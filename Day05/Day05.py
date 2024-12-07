@@ -36,60 +36,6 @@ DOPART01 = True
 DOPART02 = True
 FOLDER = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day05\\'
 
-def compute_sum(string) -> int:
-    findstr = "mul\(\d+,\d+\)"
-
-    muls = re.findall(findstr, string)
-
-    finda = "\d+"
-    total = 0
-    for x in muls:
-        a,b = re.findall(finda, x)
-        a = int(a)
-        b = int(b)
-        print(x, a ,b)
-        z = a * b
-        total += z
-    return(total)
-
-class XmasWord():
- 
-    wordCount = 0
-    def __init__(self, start_x: int, start_y: int, d_x: int, d_y: int, length: int, char: str):
-        self.start_x = start_x
-        self.start_y = start_y
-        self.d_x = d_x
-        self.d_y = d_y
-        self.length = length
-        self.active = True
-        self.word = char
-        self.index = self.wordCount
-        XmasWord.wordCount += 1
-
-    def __str__(self):
-        return (f'{self.__class__.__name__}(word: {self.word} start y,x: {self.start_y, self.start_x} direction y,x: {self.d_y, self.d_x} length: {self.length} index:{self.index} active: {self.active}')
-
-def active_indexes(thewords):
-    for wx in thewords:
-        if wx.active:
-            yield wx.index
-
-def loadgrid(file):
-    grid = []
-    inputstring = ""
-    with open(file01,'r') as csvfile: 
-        y = 0
-        for line in csvfile:
-            row = []
-            x = 0
-            for char in line:
-                if char > ' ':
-                    row.append(char)
-                    x += 1
-            grid.append(row)
-            y += 1    
-    print(f"Loaded : x: {x} y : {y} grid")
-    return(y, x, grid)
 
 def loadDay05(file):
     boLoadingPairs = True
@@ -135,8 +81,6 @@ if __name__ == '__main__':
     middlevaluetotal02 = 0
 
     if DOPART01:
-        words = []
-        XmasWord.wordCount = 0
         file01 = FOLDER + 'trial05stage01.csv'
         file01 = FOLDER + 'day05stage01.csv'
         
@@ -184,8 +128,6 @@ if __name__ == '__main__':
         print(f"Part 01 - Middle Value Total: {middlevaluetotal01}")       
                      
     if DOPART02:
-        words = []
-        XmasWord.wordCount = 0
         file01 = FOLDER + 'trial05stage01.csv'
         file01 = FOLDER + 'day05stage01.csv'
 
