@@ -31,7 +31,7 @@ from enum import Enum
 
 DOPART01 = True
 DOPART02 = True
-FOLDER = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day06\\'
+FOLDER = '.\\Day06\\'
 
 
 def loadDay05(file):

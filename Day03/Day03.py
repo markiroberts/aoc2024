@@ -32,7 +32,7 @@ import re
 
 DOPART01 = True 
 DOPART02 = True
-FOLDER = '.\\'
+FOLDER = '.\\Day03\\'
 
 def compute_sum(string) -> int:
     findstr = "mul\(\d+,\d+\)"

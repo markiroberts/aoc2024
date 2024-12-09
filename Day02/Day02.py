@@ -71,8 +71,8 @@ def checkSafety(row) -> tuple[bool, str]:
     return(safe, rejection_reason)
 
 if __name__ == '__main__':
-#    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day02\\trial.csv'
-    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day02\\day02stage01.csv'
+#    file = '.\Day02\\trial.csv'
+    file = '.\\Day02\\day02stage01.csv'
     inputdata = []
     with open(file,'r') as csvfile: 
         reader = csv.reader( csvfile,delimiter=' ') # change contents to floats

@@ -30,8 +30,8 @@
 import pandas as pd
 
 if __name__ == '__main__':
-    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day01\\trail.csv'
-    file = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day01\\day01stage01.csv'
+    file = '.\\Day01\\trail.csv'
+    file = '.\\Day01\\day01stage01.csv'
     print(file)
     df = pd.read_csv(file, sep='\s+', names=['a','b'], index_col=False)
     print(df.head(8))

@@ -33,7 +33,7 @@ from enum import Enum
 from multiprocessing import Pool
 
 DOPART01 = True
-FOLDER = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day08\\'
+FOLDER = '.\\Day08\\'
 
 #..........
 #..........

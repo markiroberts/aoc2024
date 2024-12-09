@@ -32,7 +32,7 @@ import re
 
 DOPART01 = True 
 DOPART02 = True
-FOLDER = 'C:\\Users\\marki\\OneDrive\\Documents\\AI Apprentiship\\20241203 Advent of Code 2024\\aoc2024\\Day04\\'
+FOLDER = '.\\Day04\\'
 
 def compute_sum(string) -> int:
     findstr = "mul\(\d+,\d+\)"

@@ -11,6 +11,7 @@
 
 numpy
 pandas
+matplotlib
 #tensorflow
 #tensorflow_datasets
 #keras==2.12
