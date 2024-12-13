@@ -95,8 +95,6 @@ class Map():
                 if z == 0:
                     pos = (x,y)
                     self.trailHeads.append(pos)
-        for x in self.trailHeads:
-            print (x)
 
     def scoreTrailHeads01(self):
         headGoalPairs = {}
@@ -160,21 +158,15 @@ class Map():
                     branches = []
                     z = int(self.height[y][x])
                     findz = z + 1
-                    boFoundBranchCurrentRoute = True
-
-#                    while(boFoundBranchCurrentRoute):
-#                        boFoundBranchCurrentRoute = False
 
                     for b in self.getneighbours(x,y):
                         xb = b[0]
                         yb = b[1]
                         zb = int(self.height[yb][xb])
-                        print(xb, yb, zb)
                         if ( zb == findz ):
                             branches.append(b)
 
                     if len(branches) > 0:  # if found a next step
-                        boFoundBranchCurrentRoute = True
                         boFoundBranchAnyRoute = True
                         for b in branches:
                             newroute = current_route.copy()
@@ -281,7 +273,6 @@ if __name__ == '__main__':
         print("Doing Part 01")
         map = Map()
         map.loadDay10(file01)
-        print(map)
         map.findTrailHeads()
         map.findGoalRoutes()
         map.scoreTrailHeads01()
