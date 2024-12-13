@@ -56,7 +56,12 @@ FOLDER = '.\\Day10\\'
 #
 # Thoughts:
 # be nice to visualise in 3d?
-# 
+# implemented a matplot lib to draw 
+# - 3d plot of surface
+# - vertical marker for each trail head
+# - line along surface for each route
+#
+# not optimal but works, could use recursive path
 
 class Map():
 
