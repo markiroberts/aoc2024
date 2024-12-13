@@ -1,0 +1,22 @@
+# install required libraries
+# pip install -r .\requirements.txt
+
+# list libraries
+# pip freeze > current.txt
+
+# uninstall libraries if needed to start again..
+# pip freeze > current.txt
+# pip uninstall -r .\current.txt -y
+
+
+numpy
+pandas
+matplotlib
+#tensorflow
+#tensorflow_datasets
+#keras==2.12
+#matplotlib
+#pandas
+#seaborn
+#pygame
+#ipykernel
